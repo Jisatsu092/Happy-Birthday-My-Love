@@ -1,0 +1,441 @@
+/* ── Loading Screen ─────────────────────────────────────────── */
+.loadingScreen {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  z-index: 1000;
+  transition: opacity 0.6s ease;
+}
+
+.loadingFade {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loadingDots {
+  display: flex;
+  gap: 10px;
+}
+
+.loadingDots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  animation: dotBounce 1.2s ease-in-out infinite;
+}
+
+.loadingDots span:nth-child(2) { animation-delay: 0.2s; }
+.loadingDots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotBounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+.loadingText {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+}
+
+/* ── Question Screen ────────────────────────────────────────── */
+.questionScreen {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, #1a0a2e 0%, #000 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 900;
+  transition: opacity 0.7s ease;
+}
+
+.questionCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.questionText {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(22px, 5vw, 34px);
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.questionName {
+  color: #f472b6;
+  font-style: italic;
+}
+
+.answerBtn {
+  padding: 14px 36px;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(135deg, #ec4899, #8B5CF6);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(236,72,153,0.35);
+  transition: transform 0.15s, box-shadow 0.15s;
+  white-space: nowrap;
+  z-index: 980;
+}
+
+.answerBtn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 6px 32px rgba(236,72,153,0.55);
+}
+
+.gifBehind {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 910;
+}
+
+.gifCaption {
+  color: rgba(255,255,255,0.85);
+  font-size: 16px;
+  font-weight: 500;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.8);
+}
+
+/* Hide canvas until galaxy screen */
+.canvasHidden {
+  visibility: hidden;
+}
+
+.root {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  overflow: hidden;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  cursor: grab;
+}
+
+.canvas:active {
+  cursor: grabbing;
+}
+
+/* HUD */
+.hud {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hudBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.hudBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Hint */
+.hint {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 12px;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+/* Panel */
+.panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  max-height: 100vh;
+  overflow-y: auto;
+  background: rgba(8, 8, 20, 0.92);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  z-index: 200;
+  padding-bottom: 40px;
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: sticky;
+  top: 0;
+  background: rgba(8, 8, 20, 0.98);
+  z-index: 1;
+}
+
+.panelTitle {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color 0.2s;
+}
+
+.closeBtn:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.section {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.sectionLabel {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+/* Upload */
+.uploadArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.uploadArea:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.uploadIcon {
+  font-size: 24px;
+}
+
+.uploadText {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 13px;
+  text-align: center;
+}
+
+/* Preset grid */
+.presetGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.presetBtn {
+  padding: 10px 8px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.15s;
+  min-height: 48px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.presetBtn:hover {
+  transform: scale(1.03);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.presetBtnActive {
+  border-color: #fff !important;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+}
+
+.presetLabel {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  letter-spacing: 0.02em;
+}
+
+.tip {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+  .panel {
+    width: 100vw;
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    top: auto;
+    bottom: 0;
+    max-height: 65vh;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .hud {
+    top: 16px;
+    right: 16px;
+  }
+}
+
+/* Toggle row */
+.toggleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toggleLabel {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+}
+
+.toggleBtn {
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.4);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toggleOn {
+  background: rgba(139, 92, 246, 0.35);
+  border-color: #8B5CF6;
+  color: #c4b5fd;
+}
+
+/* Custom text input */
+.textInput {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  color: rgba(255,255,255,0.85);
+  font-size: 13px;
+  padding: 10px 12px;
+  resize: none;
+  outline: none;
+  box-sizing: border-box;
+  font-family: inherit;
+  line-height: 1.5;
+  transition: border-color 0.2s;
+}
+
+.textInput:focus {
+  border-color: rgba(139,92,246,0.6);
+}
+
+/* ── Mobile fixes ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Question screen larger text */
+  .questionText {
+    font-size: 26px;
+  }
+
+  /* YES button bigger tap target */
+  .answerBtn {
+    padding: 16px 44px;
+    font-size: 18px;
+    min-height: 54px;
+  }
+
+  /* GIF caption readable */
+  .gifCaption {
+    font-size: 18px;
+  }
+
+  /* Loading dots bigger */
+  .loadingDots span {
+    width: 12px;
+    height: 12px;
+  }
+
+  /* HUD buttons bigger */
+  .hudBtn {
+    width: 52px;
+    height: 52px;
+    font-size: 22px;
+  }
+
+  /* Panel full-width bottom sheet */
+  .panel {
+    width: 100vw;
+    border-left: none;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    top: auto;
+    bottom: 0;
+    max-height: 70vh;
+    border-radius: 20px 20px 0 0;
+  }
+
+  /* Hint hidden on mobile (obvious from UX) */
+  .hint {
+    display: none;
+  }
+
+  /* Preset grid 3 cols on mobile */
+  .presetGrid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}

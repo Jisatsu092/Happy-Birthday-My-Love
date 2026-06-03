@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/galaxy", "destination": "/galaxy.html" },
+    { "source": "/galaxy/(.*)", "destination": "/galaxy.html" }
+  ]
+}
